@@ -1,0 +1,17 @@
+{
+  "description": "HTML/CSS Theme for www.aubm.net",
+  "repository": "https://github.com/aubm/aubm-website-theme.git",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-util": "^3.0.7"
+  },
+  "scripts": {
+    "serve": "gulp serve"
+  }
+}

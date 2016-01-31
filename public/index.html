@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="author" content="Aurélien Baumann">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" page-metadesc>
+    <title page-title>Aubm</title>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/theme.css" type="text/css">
+</head>
+<body>
+
+<div class="page-container container-fluid">
+    <div class="col-md-3 menu">
+        <nav class="col-md-3">
+            <div id="last-posts" class="open">
+                <h3 data-open="last-posts">Aubm.net - Les derniers articles</h3>
+                <ul>
+                    <li><a href="#">Astuce le serveur de developpement embarque de-php</a></li>
+                    <li><a href="#">Astuce phpstorm partager ses lives templates</a></li>
+                    <li><a href="#">Contrainte dunicite dans symfony 2 avec doctrine</a></li>
+                    <li><a href="#">Du neuf sous le capot</a></li>
+                    <li><a href="#">Gardez le code explicite court et modulaire</a></li>
+                    <li><a href="#">Installation et utilisation de sentry</a></li>
+                    <li><a href="#">La pagination avec doctrine la bonne methode</a></li>
+                    <li><a href="#">Mes premiers pas avec cakephp 3</a></li>
+                    <li><a href="#">Retour dexperience sur joomla point de vue dun developpeur</a></li>
+                    <li><a href="#">Utiliser les event subscriber avec fosrestbundle et jmsserializerbundle</a></li>
+                    <li><a href="#">Webservice restful avec symfony2 gerer les champs de type datetime</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="col-md-9 article-content">
+        <article>
+            <p>Bonjour, ce petit article pour partager une de mes découvertes récentes. Il s&rsquo;agit du serveur web
+                interne de
+                PHP, intégré depuis la version 5.4. La lecture de cette article ne vous apprendra surement pas grand
+                chose
+                si vous
+                avez déjà connaissance de cette fonctionnalité.</p>
+
+            <p>Pour en savoir plus, rendez vous directement sur la <a
+                    href="http://php.net/manual/fr/features.commandline.webserver.php" target="_blank">documentation
+                officielle de
+                PHP</a>. La documentation explique comment utiliser de façon très simple ce service. A noter que celui n&rsquo;est
+                pas pensé pour être utilisé dans un environnement de production, mais est destiné à servir dans un
+                environnement de
+                développement. Il n&rsquo;est, par conséquent, plus nécessaire de configurer une nouvelle vhost sur
+                votre
+                serveur
+                http (typiquement apache ou nginx), et d&rsquo;ajouter une entrée dans le fichier hosts. Démarrez votre
+                application
+                à l&rsquo;aide d&rsquo;une simple commande dans votre terminal, et testez directement votre application
+                !
+            </p>
+
+            <h2 id="encore-mieux:b661274995ee589e28a51c629100f44d">Encore mieux</h2>
+
+            <p>De nombreux framework de développement PHP, dont Symfony ou encore Laravel facillitent encore plus l&rsquo;utilisation
+                de ce service. Pour l&rsquo;exemple, si vous utilisez Symfony2 pour développer votre application, tapez
+                directement
+                dans votre terminal la commande suivante :</p>
+
+<pre><code class="language-bash">php app/console server:run
+</code></pre>
+
+            <p>La console vous affichera un message comme :</p>
+
+<pre><code class="language-bash">Server running on http://localhost:8000
+</code></pre>
+
+            <p>Ouvrez votre navigateur et rendez vous à l&rsquo;adresse <code>http:/localhost:8000</code> pour utiliser
+                votre
+                application. Note : la commande lance l&rsquo;application dans l&rsquo;environnement de développement,
+                vous
+                n&rsquo;avez
+                donc pas besoin de faire précéder toutes vos route par <code>app_dev.php</code>.</p>
+
+            <p>Pour finir un petit coup d&rsquo;oeil sur les informations que nous fournit la commande suivante :</p>
+
+<pre><code class="language-bash">php app/console server:run --help
+</code></pre>
+
+            <p>Enfin, pour en savoir plus, rendez-vous directement sur la <a
+                    href="http://symfony.com/doc/current/cookbook/web_server/built_in.html" target="_blank">documentation
+                officelle
+                de Symfony</a>.</p>
+
+            <p>Et voilà, have fun :)</p>
+        </article>
+    </div>
+</div>
+</body>
+<script src="js/theme.js" type="text/javascript"></script>
+</html>
