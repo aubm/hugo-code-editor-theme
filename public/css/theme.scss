@@ -47,6 +47,7 @@ a {
       position: fixed;
       height: 100%;
       overflow-y: auto;
+      overflow-x: hidden;
     }
 
     @media (max-width: $screen-sm-max) {
@@ -95,6 +96,14 @@ a {
           color: $text-color;
           text-decoration: none;
         }
+      }
+
+      &.tags li:before {
+        @extend .glyphicon-tag;
+      }
+
+      &.categories li:before {
+        @extend .glyphicon-book;
       }
     }
 
