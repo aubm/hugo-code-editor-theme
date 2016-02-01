@@ -35,61 +35,864 @@
     </div>
     <div class="col-md-9 article-content">
         <article>
-            <p>Bonjour, ce petit article pour partager une de mes découvertes récentes. Il s&rsquo;agit du serveur web
-                interne de
-                PHP, intégré depuis la version 5.4. La lecture de cette article ne vous apprendra surement pas grand
-                chose
-                si vous
-                avez déjà connaissance de cette fonctionnalité.</p>
+            <h1>Mes premiers pas avec cakephp 3</h1>
+            <h2 id="avant-propos:cef4ef39fb39a8da0d9e48695b83d954">Avant propos</h2>
 
-            <p>Pour en savoir plus, rendez vous directement sur la <a
-                    href="http://php.net/manual/fr/features.commandline.webserver.php" target="_blank">documentation
-                officielle de
-                PHP</a>. La documentation explique comment utiliser de façon très simple ce service. A noter que celui n&rsquo;est
-                pas pensé pour être utilisé dans un environnement de production, mais est destiné à servir dans un
-                environnement de
-                développement. Il n&rsquo;est, par conséquent, plus nécessaire de configurer une nouvelle vhost sur
-                votre
-                serveur
-                http (typiquement apache ou nginx), et d&rsquo;ajouter une entrée dans le fichier hosts. Démarrez votre
-                application
-                à l&rsquo;aide d&rsquo;une simple commande dans votre terminal, et testez directement votre application
-                !
+            <p>Profitant d&rsquo;un peu de temps libre j&rsquo;ai décidé de m&rsquo;essayer à la dernière version en
+                date de
+                CakePHP, à savoir CakePHP 3. Je suis donc parti dans l&rsquo;idée de pondre un Twitter-like en version
+                allégée (très
+                allégée).</p>
+
+            <p>Après avoir posé le contexte en présentant mon Twitter fait maison, je développerai cet article en
+                apportant des
+                précisions sur le code et les différentes fonctionnalités de CakePHP 3 que j&rsquo;ai utilisées pour
+                construire le
+                site. A noter que l&rsquo;objectif premier est de se concentrer sur les spécificités de CakePHP 3. Je
+                suggère - afin
+                de tirer meilleur parti de cette lecture - de bénéficier en amont d&rsquo;une certaine expérience autour
+                d&rsquo;outils
+                comme Composer, d&rsquo;être à l&rsquo;aise avec le modèle MVC, ou encore de savoir ce qu&rsquo;est un
+                ORM.</p>
+
+            <p>Au départ, mes objectifs étaient de comprendre comment un projet CakePHP 3 est structuré et de découvrir
+                les
+                fonctionnalités offertes par le framework. C&rsquo;est dans cet esprit que je vais écrire, tâchant de
+                rester dans
+                une simple description. Le but n&rsquo;est donc pas de comparer CakePHP 3 à d&rsquo;autres frameworks,
+                ni de
+                répondre directement à des questions comme &ldquo;Cake est-il adapté pour tel type d&rsquo;application ?&rdquo;.
+                D&rsquo;autant
+                que la forme ne s&rsquo;y prête pas dans la mesure où un projet comme celui-ci ne permet pas de couvrir
+                tous ses
+                aspects.</p>
+
+            <p>Cet article est un bilan sur les quelques journées que j&rsquo;ai passées à jongler entre mon IDE et la
+                documentation
+                officielle de CakePHP 3. Je l&rsquo;écris avant tout pour moi, afin qu&rsquo;il puisse éventuellement me
+                servir de
+                point de départ si j&rsquo;ai un jour besoin de travailler avec ce framework. Ceci étant dit, comme il
+                semble qu&rsquo;il
+                n&rsquo;existe encore (du moins à l&rsquo;heure où j&rsquo;écris) que relativement peu de ressources sur
+                le sujet
+                (en dehors de la documentation officielle et en français du moins), je serais content d&rsquo;apprendre
+                qu&rsquo;il
+                a pu servir à d&rsquo;autres développeurs.</p>
+
+            <h2 id="contexte:cef4ef39fb39a8da0d9e48695b83d954">Contexte</h2>
+
+            <p>L&rsquo;application que j&rsquo;ai réalisée s&rsquo;inspire ouvertement du fonctionnement de Twitter.
+                Voilà le
+                contenu de ma check-list en début de projet :</p>
+
+            <ul>
+                <li>Les utilisateurs enregistrés peuvent poster des messages (des tweets) de moins de 140 caractères
+                </li>
+                <li>Tous les tweets apparaissent en page d&rsquo;accueil dans l&rsquo;ordre du plus récent au plus
+                    ancien
+                </li>
+                <li>La page d&rsquo;un utilisateur affiche les détails de son profil et la liste de ses tweets</li>
+                <li>Possibilité d&rsquo;ajouter des #hashtags dans les tweets, cliquer sur un hashtag affiche la liste
+                    de tous les
+                    tweets qui le mentionnent
+                </li>
+                <li>Pas de pagination pour les tweets, charger les tweets suivants au défilement de la page</li>
+                <li>Les utilisateurs peuvent modifier les détails de leur profil et télécharger une image pour
+                    personnaliser leur
+                    avatar
+                </li>
+                <li>Afficher un bloc listant les hashtags les plus populaires</li>
+            </ul>
+
+            <p>N&rsquo;ayant pas souhaité déployer sur un serveur, j&rsquo;ai pris la peine de réaliser cette vidéo de
+                présentation
+                au cas où vous souhaiteriez voir l&rsquo;application tourner.</p>
+
+            <div class="video-wrapper">
+                <iframe width="1280" height="750" src="https://www.youtube.com/embed/_-UvsRoXZeM" frameborder="0"
+                        allowfullscreen></iframe>
+            </div>
+
+            <p>Les sources sont disponibles sur <a href="https://github.com/aubm/Twitthome-CakePHP3" target="_blank">Github</a>.
+                Je
+                suggère de conserver l&rsquo;onglet Github ouvert pendant la lecture afin de pouvoir facilement faire
+                des parallèles
+                entre les notions abordées et le code de l&rsquo;application.</p>
+
+            <p>Le fichier <a href="https://github.com/aubm/Twitthome-CakePHP3/blob/master/database.sql"
+                             target="_blank">database.sql</a> contient les requêtes à exécuter pour ajouter les tables
+                dans une base
+                de données MySQL.</p>
+
+            <figure>
+                <img src="/img/twitthome_schema.png" alt="Schéma base de données Twitthome"
+                     class="img-responsive"/>
+                <figcaption>Une représentation graphique du schéma de la base de données.</figcaption>
+            </figure>
+
+            <h2 id="généralités-et-organisation-du-code:cef4ef39fb39a8da0d9e48695b83d954">Généralités et organisation du
+                code</h2>
+
+            <p>A supposer que vous souhaitiez démarrer un projet CakePHP 3, la seule chose à faire après avoir installé
+                les
+                pré-requis nécessaires (PHP 5.3 et Composer) est de lancer cette commande :</p>
+
+<pre><code class="language-bash">composer create-project --prefer-dist -s dev cakephp/app my_app_name
+</code></pre>
+
+            <p>Composer téléchargera CakePHP 3 et ses dépendances dans un nouveau dossier <code>my_app_name</code>. Le
+                script d&rsquo;installation
+                est lancé automatiquement et propose de configurer les droits des répertoires pour vous. Vous pourrez
+                alors
+                commencer à travailler sur le site en utilisant le serveur HTTP embarqué :</p>
+
+<pre><code class="language-bash">bin/cake server
+</code></pre>
+
+            <p>Comme pour beaucoup de frameworks web, CakePHP 3 propose une implémentation du pattern composite MVC pour
+                la gestion
+                du cycle de vie des requêtes HTTP. Le code de l&rsquo;application va donc être segmenté en trois
+                couches, chacune
+                pouvant tirer parti d&rsquo;un certain nombre d&rsquo;éléments : composants, comportements, helpers,
+                etc &hellip; Il
+                s&rsquo;agit là de termes propres à CakePHP que je développerai plus tard.</p>
+
+            <p>Le fichier d&rsquo;entrée de l&rsquo;application est <code>/webroot/index.php</code>. Son rôle est de
+                déclencher le
+                processus de démarrage de l&rsquo;application, puis d&rsquo;instancier le <strong>dispatcher</strong>
+                qui se
+                chargera de déléguer la requête au bon contrôleur. <code>/webroot/</code> est le répertoire auquel doit
+                être
+                configuré le <strong>document root</strong>.<code>index.php</code> devrait y être le seul fichier PHP
+                aux côtés d&rsquo;autres
+                ressources web comme des images, des fichiers CSS ou Javascript.</p>
+
+            <p>Si vous avez besoin d&rsquo;intervenir sur des étapes du démarrage de l&rsquo;application, vous aurez
+                alors besoin d&rsquo;éditer
+                un peu de code dans <code>/config/</code>. Dans <code>/config/app.php</code> sont notamment définis les
+                paramètres
+                de connexion à la base de données, le niveau de debug ou encore la gestion des sessions. Les routes sont
+                définies
+                programmatiquement dans <code>/config/routes.php</code>.</p>
+
+            <p>Pour le reste, le répertoire <code>/src/</code> se chargera d&rsquo;héberger les sources de l&rsquo;application.
+                Les
+                contrôleurs, les modèles ou encore les templates sont situés dans des sous-répertoires de
+                <code>/src/</code>. Cette
+                même structure est reprise au travers <a href="http://book.cakephp.org/3.0/fr/plugins.html"
+                                                         target="_blank">des
+                    plugins</a>. Pratique pour packager une application dans le but de la réutiliser dans une autre
+                (conceptuellement proche des bundles de Symfony 2).</p>
+
+            <h2 id="les-routes:cef4ef39fb39a8da0d9e48695b83d954">Les routes</h2>
+
+            <h3 id="déclarer-des-routes:cef4ef39fb39a8da0d9e48695b83d954">Déclarer des routes</h3>
+
+            <p>Les routes sont définies dans <code>/config/routes.php</code> à l&rsquo;intérieur de
+                <strong>scopes</strong>. Un
+                scope permet - entre autres - de factoriser plusieurs routes afin de leur attribuer un préfix.</p>
+
+<pre><code class="language-php">Router::scope('/api/', function ($routes) {
+    $routes-&gt;connect('/tweets', [
+    'controller' =&gt; 'Tweets',
+    'action' =&gt; 'index'
+    ], [
+    '_name' =&gt; 'tweets_index'
+    ]);
+    });
+</code></pre>
+
+            <p>Le code ci-dessus connecte la route <code>/api/tweets</code> au dispatcher. Le dispatcher se chargera de
+                passer la
+                requête à la méthode <code>TweetsController::index()</code>. Le tableau d&rsquo;options en troisième
+                paramètre de la
+                méthode <code>connect()</code> est facultatif. Définir l&rsquo;option <code>_name</code> permet de
+                générer les urls
+                plus facilement depuis les templates (vu plus tard).</p>
+
+            <h3 id="déclarer-des-ressources-restful:cef4ef39fb39a8da0d9e48695b83d954">Déclarer des ressources
+                restful</h3>
+
+            <p>Supposons maintenant qu&rsquo;il s&rsquo;agisse de mettre en place une API restful. CakePHP 3 offre la
+                possibilité de
+                s&rsquo;affranchir de portions de code répétitives en tirant parti de quelques conventions sur
+                lesquelles reposent
+                des comportements par défaut du framework. Cette philosophie - sans doute héritée de Ruby on Rails - est
+                omniprésente. Qu&rsquo;il s&rsquo;agisse de travailler avec les routes ou encore avec l&rsquo;ORM, elle
+                peut faire
+                gagner un temps précieux.</p>
+
+            <p>Pour l&rsquo;exemple, jetons un oeil sur ce tableau :</p>
+
+            <table class="table table-condensed">
+                <tr>
+                    <td>GET</td>
+                    <td>/api/tweets.:format</td>
+                    <td>TweetsController::index()</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/api/tweets/:tweet_id.:format</td>
+                    <td>TweetsController::view($tweet_id)</td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>/api/tweets.:format</td>
+                    <td>TweetsController::add()</td>
+                </tr>
+                <tr>
+                    <td>PUT</td>
+                    <td>/api/tweets/:tweet_id.:format</td>
+                    <td>TweetsController::edit($tweet_id)</td>
+                </tr>
+                <tr>
+                    <td>PATCH</td>
+                    <td>/api/tweets/:tweet_id.:format</td>
+                    <td>TweetsController::edit($tweet_id)</td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>/api/tweets/:tweet_id.:format</td>
+                    <td>TweetsController::delete($tweet_id)</td>
+                </tr>
+            </table>
+
+            <p>Ces routes peuvent être configurées automatiquement avec ce seul extrait de code :</p>
+
+<pre><code>Router::scope('/api/', function ($routes) {
+    $routes-&gt;extensions(['xml', 'json']);
+    $routes-&gt;resources('tweets');
+    });
+</code></pre>
+
+            <h3 id="les-routes-auto-déclarées:cef4ef39fb39a8da0d9e48695b83d954">Les routes auto-déclarées</h3>
+
+            <p>Une chose à savoir à propos de CakePHP 3 est qu&rsquo;il connecte automatiquement une route au dispatcher
+                pour chaque
+                nouvelle action de contrôleur. Le nom de ces routes est défini en fonction du nom du contrôleur et de la
+                méthode.
+                Si bien que le code si dessous :</p>
+
+<pre><code class="language-php">class TweetsController
+    {
+    function index()
+    {
+    ...
+    }
+
+    function add()
+    {
+    ...
+    }
+
+    function load()
+    {
+    ...
+    }
+    }
+</code></pre>
+
+            <p>Connectera automatiquement les routes <code>/tweets</code>, <code>/tweets/add</code> et <code>/tweets/load</code>.
+                Ce
+                comportement est induit par cette instruction du fichier <code>/config/routes.php</code> :</p>
+
+<pre><code class="language-php">$routes-&gt;fallbacks('InflectedRoute');
+</code></pre>
+
+            <p>Naturellement, supprimer cette instruction supprimera ce comportement.</p>
+
+            <h2 id="la-couche-controller:cef4ef39fb39a8da0d9e48695b83d954">La couche Controller</h2>
+
+            <h3 id="les-classes-de-contrôleur:cef4ef39fb39a8da0d9e48695b83d954">Les classes de contrôleur</h3>
+
+            <p>Les classes de contrôleur sont situées dans <code>/src/Controller/</code>. Elles doivent étendre la
+                classe <code>\Cake\Controller\Controller</code>
+                et leur nom doit - par convention - se terminer par le suffixe <code>Controller</code>.</p>
+
+            <p>L&rsquo;application Twitthome utilise quatre classes de contrôleur : <code>TweetsController</code>,
+                <code>HashtagsController</code>,
+                <code>UsersController</code> et <code>AccountParametersController</code>. Comme suggéré dans la
+                documentation
+                officielle, ces classes étendent <code>AppController</code>. Cette pratique est un moyen simple de
+                définir des
+                comportements globaux pour l&rsquo;application, comme par exemple des règles liées à l&rsquo;authentification.
+                L&rsquo;instruction ci-dessous extraite de la classe <code>AppController</code> autorise les accès
+                non-authentifiés
+                aux actions (i.e. aux méthodes) <code>index</code>, <code>view</code> et <code>display</code> pour tous
+                les
+                contrôleurs.</p>
+
+<pre><code class="language-php">$this-&gt;Auth-&gt;allow(['index', 'view', 'display']);
+</code></pre>
+
+            <p>Le router mis à part, le contrôleur est le point d&rsquo;entrée de l&rsquo;application. Depuis le
+                contrôleur, CakePHP
+                3 permet de manipuler la requête et la réponse HTTP au moyen des attributs <a
+                        href="http://api.cakephp.org/3.0/class-Cake.Network.Request.html"
+                        target="_blank"><code>request</code></a>
+                et <a href="http://api.cakephp.org/3.0/class-Cake.Network.Response.html"
+                      target="_blank"><code>response</code></a>.
+                Les paramètres des routes sont quant à eux injectés en tant que paramètres des méthodes (des actions).
             </p>
 
-            <h2 id="encore-mieux:b661274995ee589e28a51c629100f44d">Encore mieux</h2>
+            <p>Le contrôleur délègue la génération du contenu de la réponse à une vue. La méthode <code>\Cake\Controller\Controller::render()</code>
+                est automatiquement appelée et se charge d&rsquo;invoquer le template correspondant à l&rsquo;action (vu
+                plus tard).
+                Le contrôleur peut passer des données au template au moyen de
+                <code>\Cake\View\ViewVarsTrait::set()</code>.</p>
 
-            <p>De nombreux framework de développement PHP, dont Symfony ou encore Laravel facillitent encore plus l&rsquo;utilisation
-                de ce service. Pour l&rsquo;exemple, si vous utilisez Symfony2 pour développer votre application, tapez
-                directement
-                dans votre terminal la commande suivante :</p>
-
-<pre><code class="language-bash">php app/console server:run
+<pre><code class="language-php">$this-&gt;set([
+    'tweets' =&gt; $tweets,
+    'hashtag_name' =&gt; $name
+    ]);
 </code></pre>
 
-            <p>La console vous affichera un message comme :</p>
+            <h3 id="les-composants-components:cef4ef39fb39a8da0d9e48695b83d954">Les composants (components)</h3>
 
-<pre><code class="language-bash">Server running on http://localhost:8000
+            <p>Les composants sont des objets qui peuvent être invoqués par un contrôleur dans le but de remplir une
+                tâche
+                spécifique. Le core de CakePHP 3 embarque des composants pour l&rsquo;authentification, la manipulation
+                des cookies
+                ou encore l&rsquo;utilisation de messages flash.</p>
+
+            <p>Charger des composants dans un contrôleur peut se faire à l&rsquo;intérieur du hook
+                <code>initialize()</code> du
+                contrôleur.</p>
+
+<pre><code class="language-php">public function initialize()
+    {
+    $this-&gt;loadComponent('Flash');
+    }
 </code></pre>
 
-            <p>Ouvrez votre navigateur et rendez vous à l&rsquo;adresse <code>http:/localhost:8000</code> pour utiliser
-                votre
-                application. Note : la commande lance l&rsquo;application dans l&rsquo;environnement de développement,
-                vous
-                n&rsquo;avez
-                donc pas besoin de faire précéder toutes vos route par <code>app_dev.php</code>.</p>
+            <p>Une fois fait, le composant est accessible en tant que variable d&rsquo;instance du contrôleur :</p>
 
-            <p>Pour finir un petit coup d&rsquo;oeil sur les informations que nous fournit la commande suivante :</p>
-
-<pre><code class="language-bash">php app/console server:run --help
+<pre><code class="language-php">class UsersController extends Controller
+    {
+    public function add()
+    {
+    ...
+    $this-&gt;Flash-&gt;success(__('Your account has been created.'));
+    ...
+    }
+    }
 </code></pre>
 
-            <p>Enfin, pour en savoir plus, rendez-vous directement sur la <a
-                    href="http://symfony.com/doc/current/cookbook/web_server/built_in.html" target="_blank">documentation
-                officelle
-                de Symfony</a>.</p>
+            <p>Créer ses propres composants est une solution simple et ludique permettant d&rsquo;isoler de la logique
+                dans des
+                classes utilisables à l&rsquo;intérieur d&rsquo;un ou plusieurs contrôleurs. &ldquo;Où placer la logique
+                ?&rdquo;
+                est une des premières questions que je me suis posées. Un cas pratique d&rsquo;utilisation était la
+                possibilité de
+                télécharger une photo de profil pour les utilisateurs. Le téléchargement d&rsquo;une image représente
+                une portion de
+                code susceptible de vouloir être ré-utilisée à différents emplacements de l&rsquo;application.
+                Comme CakePHP 3 ne semble pas embarquer de composant d&rsquo;injection de dépendances qui permettrait de
+                travailler
+                avec des classes de service (à l&rsquo;instar de Symfony 2 par exemple) et qu&rsquo;avoir recours à l&rsquo;héritage
+                n&rsquo;est pas toujours approprié, je me suis lancé de la construction de <a
+                        href="https://github.com/aubm/Twitthome-CakePHP3/blob/master/src/Controller/Component/ImageUploadComponent.php"
+                        target="_blank">mon propre composant d&rsquo;upload</a>.</p>
 
-            <p>Et voilà, have fun :)</p>
+            <p>Le composant est une classe résident dans <code>/src/Controller/Component/</code> dont le nom doit se
+                terminer par le
+                suffixe <code>Component</code>. Si la méthode <code>initialize()</code> du composant attend des
+                paramètres (comme c&rsquo;est
+                le cas pour mon <code>FileUploadComponent</code> dont hérite <code>ImageUploadComponent</code>) :</p>
+
+<pre><code class="language-php">class FileUploadComponent extends Component
+    {
+    public function initialize(array $config)
+    {
+    $this-&gt;upload_dir = $this-&gt;_getSystemPath($config['upload_dir']);
+    }
+    }
+</code></pre>
+
+            <p>Les contrôleurs utilisant le composant fourniront ces paramètres lors du chargement de ce dernier.
+                Exemple dans mon
+                <code>AccountParametersController</code> :</p>
+
+<pre><code class="language-php">class AccountParametersController extends AppController
+    {
+    public function initialize()
+    {
+    parent::initialize();
+    $this-&gt;loadComponent('ImageUpload', [
+    'upload_dir' =&gt; 'webroot/img/avatars'
+    ]);
+    }
+    }
+</code></pre>
+
+            <h2 id="la-couche-model:cef4ef39fb39a8da0d9e48695b83d954">La couche Model</h2>
+
+            <h3 id="les-tables-repositories:cef4ef39fb39a8da0d9e48695b83d954">Les tables (repositories)</h3>
+
+            <h4 id="extraire-des-données:cef4ef39fb39a8da0d9e48695b83d954">Extraire des données</h4>
+
+            <p>Utiliser l&rsquo;ORM pour extraire les informations de la base de données est facile et ne requiert la
+                création d&rsquo;aucune
+                classe personnalisée.
+                A l&rsquo;intérieur de <code>TweetsController</code>, l&rsquo;instruction ci-dessous permet d&rsquo;extraire
+                l&rsquo;ensemble
+                des lignes de la table <code>tweets</code>.</p>
+
+<pre><code class="language-php">$tweets = $this-&gt;Tweets-&gt;find('all')-&gt;toArray();
+</code></pre>
+
+            <p>Encore une fois, CakePHP 3 repose sur des conventions pour faire fonctionner cette instruction :</p>
+
+            <ul>
+                <li>Par soucis de performance (je suppose), les données des tweets ne sont chargées automatiquement que
+                    dans le
+                    <code>TweetsController</code>. Le chargement de ce modèle de données devra <a
+                            href="http://api.cakephp.org/3.0/class-Cake.Datasource.ModelAwareTrait.html#_loadModel"
+                            target="_blank">être
+                        fait manuellement</a> s&rsquo;il s&rsquo;agit d&rsquo;un autre contrôleur.
+                </li>
+                <li>Le nom de la table dans la base de données doit correspondre au nom du contrôleur transformé en
+                    lower-case +
+                    underscores - soit pour cet exemple : <code>tweets</code>.
+                </li>
+            </ul>
+
+            <p>CakePHP 3 matérialise l&rsquo;interface entre l&rsquo;application et une table de la base de données par
+                la création
+                d&rsquo;un objet de type <code>\Cake\ORM\Table</code>. Sorti des conventions listées plus haut, pour
+                créer des
+                règles de validation ou encore pour exploiter des relations avec d&rsquo;autres tables, vous aurez
+                besoin de créer
+                une classe spécialisée pour matérialiser cette interface.</p>
+
+            <p>La classe <code>TweetsTable</code> qui étend <code>\Cake\ORM\Table</code> dans le fichier <code>/src/Model/Table/TweetsTable.php</code>
+                sert justement ce rôle. Le hook <code>initialize()</code> est utilisé pour définir les relations avec
+                les autres
+                tables.</p>
+
+<pre><code class="language-php">public function initialize(array $config)
+    {
+    $this-&gt;belongsTo('Users');
+    $this-&gt;belongsToMany('Hashtags');
+    }
+</code></pre>
+
+            <p>La documentation officielle fournit les informations nécessaires pour <a
+                    href="http://book.cakephp.org/3.0/fr/orm/associations.html" target="_blank">utiliser les relations
+                entre les
+                tables</a>.</p>
+
+            <p>Il est intéressant de noter que cet appel : <code>$this-&gt;Tweets-&gt;find('all');</code> va - de
+                manière
+                transparente - exécuter la méthode <code>\Cake\ORM\Table::findAll()</code>. Il est donc possible de
+                modifier le
+                comportement de cette méthode en la redéfinissant à l&rsquo;intérieur de <code>TweetsTable</code>. Voici
+                comment
+                demander à l&rsquo;ORM de charger les données des modèles associés, et de trier les résultats du plus
+                récent au plus
+                ancien :</p>
+
+<pre><code class="language-php">public function findAll(Query $query, array $options)
+    {
+    $query-&gt;contain(['Users', 'Users.AccountParameters']);
+    $query-&gt;order(['Tweets.created' =&gt; 'DESC']);
+    return $query;
+    }
+</code></pre>
+
+            <p>Cette technique permet de garder les classes de contrôleur DRY tout en continuant d&rsquo;exploiter toute
+                la
+                puissance de l&rsquo;ORM. De la même manière il est possible de définir d&rsquo;autres
+                <strong>finders</strong>.
+                Cette méthode est utilisée afin d&rsquo;extraire les tweets pour un hashtag donné :</p>
+
+<pre><code class="language-php">// Dans la classe TweetsTable
+    public function findTagged(Query $query, array $options)
+    {
+    $query-&gt;contain(['Users', 'Users.AccountParameters', 'Hashtags']);
+    $query-&gt;matching('Hashtags', function ($q) use ($options) {
+    return $q-&gt;where(['Hashtags.name' =&gt; $options['tag_name']]);
+    });
+    $query-&gt;order(['Tweets.created' =&gt; 'DESC']);
+    return $query;
+    }
+</code></pre>
+
+<pre><code class="language-php">// Dans la classe HashtagsController
+    $this-&gt;Tweets-&gt;find('tagged', [
+    'tag_name' =&gt; $tag_name
+    ]);
+</code></pre>
+
+            <h4 id="insérer-de-nouvelles-lignes:cef4ef39fb39a8da0d9e48695b83d954">Insérer de nouvelles lignes</h4>
+
+            <p>Insérer de nouvelles lignes dans la base de données ne pose pas de problème particulier.
+                Pour l&rsquo;exemple, mon application requiert de pouvoir enregistrer de nouveaux utilisateurs. A chaque
+                nouvel
+                utilisateur, une nouvelle entrée dans la table <code>account_parameters</code> doit également être
+                ajoutée.
+                Le code ci-dessous permet d&rsquo;accomplir cette tâche avec très peu de code :</p>
+
+<pre><code class="language-php">class UsersController extends AppController
+    {
+    public function add()
+    {
+    ...
+    $user = $this-&gt;Users-&gt;newEntity($user_data);
+    $user-&gt;set('account_parameter', $this-&gt;AccountParameters-&gt;newEntity());
+    $this-&gt;Users-&gt;save($user);
+    ...
+    }
+    }
+</code></pre>
+
+            <h4 id="valider-des-données:cef4ef39fb39a8da0d9e48695b83d954">Valider des données</h4>
+
+            <p>CakePHP 3 propose une double approche pour permettre de valider les données d&rsquo;une entité.
+                De lors que des données de requête sont converties en entité, CakePHP 3 effectue automatiquement une
+                validation
+                basée sur les règles configurées dans le hook <code>validationDefault()</code>. Il est possible à ce
+                niveau de s&rsquo;assurer
+                qu&rsquo;une chaine de caractères respecte un format pré-défini ou encore de vérifier qu&rsquo;un
+                attribut reçoit
+                bien une valeur en s&rsquo;inspirant de ce code :</p>
+
+<pre><code class="language-php">class UsersTable extends Table
+    {
+    public function validationDefault(Validator $validator)
+    {
+    return $validator
+    -&gt;notEmpty('username', __('Username must not be empty'))
+    -&gt;notEmpty('password', __('Password must not be empty'))
+    -&gt;notEmpty('email', __('E-mail must not be empty'))
+    -&gt;add('email', 'validFormat', [
+    'rule' =&gt; 'email',
+    'message' =&gt; __('E-mail must be valid')
+    ])
+    -&gt;notEmpty('first_name', __('First name must not be empty'))
+    -&gt;notEmpty('last_name', __('Last name must not be empty'));
+    }
+    }
+</code></pre>
+
+            <p>D&rsquo;autre part, lorsqu&rsquo;une entité s&rsquo;apprête à être persistée en base de données, CakePHP
+                3 s&rsquo;assure
+                que les données respectent les contraintes définies dans le hook <code>buildRules()</code>. Il s&rsquo;agit
+                là de <a
+                        href="http://book.cakephp.org/3.0/fr/orm/saving-data.html#appliquer-des-regles-pour-l-application"
+                        target="_blank"><strong>règles de domaine</strong></a>, elles sont relatives à un besoin métier
+                de l&rsquo;application.
+                Vous pourriez par exemple vous assurer que le statut de ce ticket l&rsquo;autorise à recevoir un
+                commentaire, ou
+                bien que ce produit est toujours disponible avant de l&rsquo;ajouter au panier. L&rsquo;exemple
+                ci-dessous est
+                extrait de Twitthome et montre comment s&rsquo;assurer de l&rsquo;unicité des champs
+                <code>username</code> et <code>email</code>
+                de la table <code>users</code> :</p>
+
+<pre><code class="language-php">class UsersTable extends Table
+    {
+    public function buildRules(RulesChecker $rules)
+    {
+    $rules-&gt;add($rules-&gt;isUnique(['username']));
+    $rules-&gt;add($rules-&gt;isUnique(['email']));
+    return $rules;
+    }
+    }
+</code></pre>
+
+            <h3 id="les-comportements-behaviors:cef4ef39fb39a8da0d9e48695b83d954">Les comportements (behaviors)</h3>
+
+            <p>Tout comme les composants permettent de factoriser de la logique des contrôleurs, les comportements
+                permettent de
+                réutiliser de la logique de la couche Model. La <a
+                        href="http://book.cakephp.org/3.0/fr/orm/behaviors.html"
+                        target="_blank">documentation officielle de CakePHP 3</a> les
+                présente comme étant &ldquo;conceptuellement similaires aux traits&rdquo;. Bien que n&rsquo;ayant pas eu
+                besoin de
+                créer mes propres comportements, j&rsquo;ai pu tirer parti de l&rsquo;utilisation du <a
+                        href="http://api.cakephp.org/3.0/class-Cake.ORM.Behavior.TimestampBehavior.html"
+                        target="_blank"><code>TimestampBehavior</code></a>
+                (défini dans le core du framework) pour mettre à jour automatiquement les champs <code>created</code> et
+                <code>modified</code>
+                des tables <code>tweets</code> et <code>users</code>. Voici comment utiliser un comportement dans une
+                table :</p>
+
+<pre><code class="language-php">class UsersTable extends Table
+    {
+    public function initialize(array $config)
+    {
+    $this-&gt;addBehavior('Timestamp');
+    }
+    }
+</code></pre>
+
+            <h3 id="les-entités:cef4ef39fb39a8da0d9e48695b83d954">Les entités</h3>
+
+            <p>Les objets table manipulent des objets de type <code>\Cake\ORM\Entity</code>. Chaque instance représente
+                une ligne d&rsquo;une
+                table de la base de données. Comme pour les tables, il est possible de créer des classes spécialisées
+                qui seront
+                utilisées par l&rsquo;ORM pour représenter les entités de l&rsquo;application. Ces classes sont définies
+                dans des
+                fichiers à l&rsquo;intérieur de <code>/src/Model/Entity/</code> et leur nom (par convention) correspond
+                au nom de la
+                table ramené au singulier.</p>
+
+            <p>Un intérêt d&rsquo;utiliser des classes spécialisées réside dans la possibilité de surcharger les
+                accesseurs et les
+                mutateurs des différents attributs. Pratique notamment dans le cas de l&rsquo;entité <code>User</code>
+                pour crypter
+                le mot de passe de manière transparente :</p>
+
+<pre><code class="language-php">class User extends Entity
+    {
+    protected function _setPassword($password)
+    {
+    return (new DefaultPasswordHasher)-&gt;hash($password);
+    }
+    }
+</code></pre>
+
+            <p>J&rsquo;ai utilisé cette même technique afin <a
+                    href="https://github.com/aubm/Twitthome-CakePHP3/blob/master/src/Model/Entity/Tweet.php"
+                    target="_blank">d&rsquo;extraire
+                des informations du contenu d&rsquo;un tweet</a>, comme les hashtags ou les liens externes.</p>
+
+            <h2 id="la-couche-view:cef4ef39fb39a8da0d9e48695b83d954">La couche View</h2>
+
+            <h3 id="les-templates:cef4ef39fb39a8da0d9e48695b83d954">Les templates</h3>
+
+            <p>Les templates sont des fichiers contenant essentiellement du code HTML. Ils sont situés dans
+                <code>/src/Templates/</code> et portent l&rsquo;extension <code>.ctp</code>. Le répertoire contient les
+                templates
+                responsables du rendu d&rsquo;une action spécifique d&rsquo;un contrôleur, mais également des fichiers
+                responsables
+                du rendu des <a href="http://book.cakephp.org/3.0/fr/views.html#elements" target="_blank">éléments</a>,
+                des <strong>cellules</strong>
+                (vu un peu après), ou encore des <strong>layouts</strong>.</p>
+
+            <p>Par défaut, le rendu des actions des contrôleurs est encapsulé à l&rsquo;intérieur du fichier <code>/src/Template/Layout/default.ctp</code>.
+                C&rsquo;est dans ce fichier que doit être inséré le code commun à tous les templates. Pour mieux
+                comprendre, partons
+                du principe que le layout par défaut devrait contenir au minimum le code suivant :</p>
+
+<pre><code class="language-php">&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;title&gt;&lt;?= $this-&gt;fetch('title') ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;?= $this-&gt;fetch('content') ?&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+</code></pre>
+
+            <p>L&rsquo;affichage généré par le contrôleur sera rendu à l&rsquo;emplacement de <code>&lt;?= $this-&gt;fetch('content')
+                ?&gt;</code>. Pour fonctionner, les templates doivent être nommés en corrélation avec le nom des
+                méthodes des
+                contrôleurs. Ainsi la méthode <code>TweetsController::index()</code> cherchera par default le fichier
+                <code>/src/Template/Tweets/index.ctp</code>.
+            </p>
+
+            <p>Le fonctionnement des layouts est basé sur la possibilité de travailler avec des <a
+                    href="http://book.cakephp.org/3.0/fr/views.html#utiliser-les-blocks-de-vues" target="_blank">blocks
+                de vue</a> à
+                l&rsquo;intérieur de vues étendues. Comme vu précédemment, le rendu de l&rsquo;action sera positionné
+                dans le block
+                <code>content</code>, mais il est possible de définir d&rsquo;autres blocks de façon arbitraire.</p>
+
+            <p>Pour l&rsquo;application Twitthome, je m&rsquo;étais donné à faire une sidebar dont le contenu serait
+                susceptible de
+                changer d&rsquo;une page à l&rsquo;autre. Un cas typique d&rsquo;utilisation des blocks de vue. J&rsquo;ai
+                donc
+                modifié mon layout <code>default.ctp</code> afin qu&rsquo;il se rapproche de quelque chose comme ça :
+            </p>
+
+<pre><code class="language-php">...
+    &lt;body&gt;
+    &lt;div class=&quot;row&quot;&gt;
+    &lt;aside class=&quot;col-md-4&quot;&gt;
+    &lt;?= $this-&gt;fetch('sidebar') ?&gt;
+    &lt;/aside&gt;
+    &lt;div class=&quot;col-md-8&quot;&gt;
+    &lt;?= $this-&gt;fetch('content') ?&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/body&gt;
+    ...
+</code></pre>
+
+            <p>Le contenu du block <code>sidebar</code> peut maintenant être défini dans un autre template, dans <code>/src/Template/Tweets/index.ctp</code>
+                par exemple :</p>
+
+<pre><code class="language-php">&lt;?php $this-&gt;start('sidebar'); ?&gt;
+    &lt;p&gt;Contenu de la sidebar !&lt;/p&gt;
+    &lt;?php $this-&gt;end(); ?&gt;
+
+    &lt;?php foreach($tweets as $tweet): ?&gt;
+    ...
+    &lt;?php endforeach; ?&gt;
+</code></pre>
+
+            <p>Dans cet exemple, la variable <code>$tweets</code> est issue de l&rsquo;appel à la méthode <code>\Cake\View\ViewVarsTrait::set()</code>
+                dans le contrôleur (cf. partie sur les classes de contrôleur).</p>
+
+            <h3 id="les-helpers:cef4ef39fb39a8da0d9e48695b83d954">Les helpers</h3>
+
+            <p>Les helpers sont ce qui facilite la création des templates et ce qui la rend plus ludique. A l&rsquo;image
+                des
+                composants pour les contrôleurs ou des comportements pour les tables, les helpers permettent de
+                ré-utiliser de la
+                logique de vue. Le core de CakePHP 3 embarque une dizaine de classes helpers chargées par défaut dans
+                les vues et
+                qui permettent entre autres :</p>
+
+            <p>De générer des urls :</p>
+
+<pre><code class="language-php">&lt;a href=&quot;&lt;?= $this-&gt;Url-&gt;build(['_name' =&gt; 'login']) ?&gt;&quot;&gt;&lt;?=
+    __('Sign in') ?&gt;&lt;/a&gt;
+</code></pre>
+
+            <p>D&rsquo;afficher des formulaires :</p>
+
+<pre><code class="language-php">&lt;?= $this-&gt;Form-&gt;create(new Tweet()); ?&gt;
+    &lt;?= $this-&gt;Form-&gt;input('content', [
+    'label' =&gt; false,
+    'class' =&gt; 'form-control',
+    'placeholder' =&gt; __('What\'s up ?')
+    ]); ?&gt;
+    &lt;?= $this-&gt;Form-&gt;button(__('Tweeter')); ?&gt;
+    &lt;?= $this-&gt;Form-&gt;end(); ?&gt;
+</code></pre>
+
+            <p>Ou encore d&rsquo;insérer une feuille de style :</p>
+
+<pre><code class="language-php">&lt;?= $this-&gt;Html-&gt;css('app.min.css') ?&gt;
+</code></pre>
+
+            <p>Des classes helpers personnalisées peuvent être ajoutées dans <code>/src/View/Helper</code>, leur nom
+                doit se
+                terminer par le suffixe <code>Helper</code>. L&rsquo;exemple ci-dessous est utilisé dans l&rsquo;application
+                Twitthome pour générer le code HTML correspondant à l&rsquo;avatar d&rsquo;un utilisateur.</p>
+
+<pre><code class="language-php">class AvatarHelper extends Helper
+    {
+    public $helpers = ['Html'];
+
+    public function render($avatar_file_name)
+    {
+    $avatar_path = $avatar_file_name ?
+    'avatars/' . h($avatar_file_name) : 'no-avatar.jpg';
+
+    return $this-&gt;Html-&gt;image($avatar_path, [
+    'alt' =&gt; 'Avatar',
+    'class' =&gt; 'img-responsive thumbnail'
+    ]);
+    }
+    }
+
+    // Dans un template ...
+    ...
+    &lt;?= $this-&gt;Avatar-&gt;render($avatar_file_name) ?&gt;
+    ...
+</code></pre>
+
+            <p>Comme le montre cet exemple, un helper peut dépendre d&rsquo;autres helpers. Les classes d&rsquo;helper
+                correspondant
+                aux éléments du tableau <code>public $helpers</code> seront automatiquement instanciées et ajoutées
+                comme attributs.
+            </p>
+
+            <p>Si vous souhaitez charger vos helpers pour les rendre utilisables à l&rsquo;échelle de votre application,
+                vous pouvez
+                demander à CakePHP 3 de les instancier dans <code>AppView</code> via le hook
+                <code>\Cake\View\View::initialize()</code>.</p>
+
+<pre><code class="language-php">class AppView extends View
+    {
+    public function initialize()
+    {
+    $this-&gt;loadHelper('Avatar');
+    }
+    }
+</code></pre>
+
+            <h3 id="les-cellules-cells:cef4ef39fb39a8da0d9e48695b83d954">Les cellules (cells)</h3>
+
+            <p>Il arrive que des fragments de page HTML dépendent de données qui n&rsquo;ont pas de lien direct avec le
+                contenu
+                principale de la page. Par exemple : un nuage de tags, un feed Instagram ou une remontée des posts les
+                plus récents
+                d&rsquo;un blog. Si ces fragments apparaissent dans plusieurs templates, cela implique que les données
+                doivent être
+                rassemblées et passées à la vue dans chaque action de contrôleur correspondant. En adoptant cette
+                approche, le code
+                des contrôleurs risque d&rsquo;être rapidement pollué. Utiliser des cellules est une solution plus
+                pratique pour
+                répondre à ce genre de problématiques.</p>
+
+            <p>La <a href="http://book.cakephp.org/3.0/fr/views/cells.html" target="_blank">documentation officielle du
+                framework</a> définit les cellules comme &ldquo;des mini-controllers qui peuvent invoquer de la logique
+                de vue et
+                afficher les templates&rdquo;. Dans le cadre de Twitthome, j&rsquo;ai utilisé une cellule pour afficher
+                le
+                bloc &ldquo;Tendances&rdquo;. La cellule existe au travers de deux fichiers. Le premier est une classe
+                définie dans
+                <code>/src/View/Cell/PopularHashtagsCell.php</code> :</p>
+
+<pre><code class="language-php">class PopularHashtagsCell extends Cell
+    {
+    public function display()
+    {
+    $this-&gt;loadModel('Hashtags');
+    $hashtags = $this-&gt;Hashtags-&gt;find('popular')-&gt;toArray();
+    $this-&gt;set('hashtags', $hashtags);
+    }
+    }
+</code></pre>
+
+            <p>Le comportement de cette classe est similaire à celui d&rsquo;un contrôleur. Celle-ci est capable de
+                charger un
+                modèle, dans le but d&rsquo;extraire les informations nécessaires de la base de données. Le second
+                fichier est le
+                template responsable du rendu de la cellule. Ce template est définit dans <a
+                        href="https://github.com/aubm/Twitthome-CakePHP3/blob/master/src/Template/Cell/PopularHashtags/display.ctp"
+                        target="_blank"><code>/src/Template/Cell/PopularHashtags/display.ctp</code></a>.</p>
+
+            <p>Enfin la dernière étape consiste à afficher la cellule à l&rsquo;intérieur d&rsquo;un template. Une <a
+                    href="http://api.cakephp.org/3.0/class-Cake.View.CellTrait.html#_cell" target="_blank">méthode</a>
+                est justement
+                prévue pour tenir ce rôle.</p>
+
+<pre><code class="language-php">&lt;?= $this-&gt;cell('PopularHashtags'); ?&gt;
+</code></pre>
+
+            <h2 id="le-mot-de-la-fin:cef4ef39fb39a8da0d9e48695b83d954">Le mot de la fin</h2>
+
+            <p>Il reste évidemment de nombreux points à aborder. Certains sur lesquels je me suis penchés sont
+                volontairement passés
+                sous silence (comme notamment la partie sur l&rsquo;internationalisation) afin de ne pas trop alourdir
+                la lecture de
+                cet article. D&rsquo;autres sujets mériteraient une attention particulière, comme l&rsquo;outil en ligne
+                de
+                commande, la gestion du cache, les logs ou encore l&rsquo;intégration des tests.</p>
+
+            <p>Ceci étant dit, si cet article ne peut pas prétendre couvrir (même de loin) tous les aspects de CakePHP
+                3, j&rsquo;ai
+                bon espoir qu&rsquo;il aide à se forger un premier avis sur le framework et puisse éventuellement servir
+                de support
+                pour le démarrage d&rsquo;un projet.
+                Pour aller plus loin, la <a href="http://book.cakephp.org/3.0/fr/contents.html" target="_blank">documentation
+                    officielle</a> est plutôt bien fournie. Elle contient des exemples d&rsquo;applications, un cookbook
+                complet et
+                une documentation soignée de l&rsquo;API.</p>
+
+            <p>Si le coeur vous en dit, je vous encourage à commenter si vous pensez pouvoir souligner certains axes d&rsquo;amélioration,
+                autant sur le support (Twitthome) que sur la forme.
+                Je vous remercie pour la lecture et happy coding à tous !</p>
+
+            </section>
         </article>
     </div>
 </div>

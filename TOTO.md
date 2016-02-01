@@ -1,4 +1,3 @@
-- Add support for elements like H*, blocquotes, images, etc ...
 - Add support for code highlighting
 - Display a list of categories and tags in the navbar
 - Change folder structure to be a actual theme for Hugo

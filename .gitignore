@@ -1,4 +1,5 @@
 .idea
+npm-debug.log
 public/**/*.css
 node_modules
 public/fonts
