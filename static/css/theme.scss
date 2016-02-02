@@ -31,11 +31,15 @@ a {
   }
 }
 
-.article-content {
+.content {
   background-color: $content-bg-color;
   min-height: 100%;
   padding-top: 1px;
   padding-bottom: 15px;
+}
+
+.articles-list article {
+  margin-bottom: 25px;
 }
 
 .menu {

@@ -1,0 +1,7 @@
+{{ partial "top.html" . }}
+<h1>{{ .Title }}</h1>
+<h4>Publié le {{ dateFormat "01-02-2006 15:04:05" .Date }}</h4>
+<article>
+    {{ .Content }}
+</article>
+{{ partial "bottom.html" . }}
