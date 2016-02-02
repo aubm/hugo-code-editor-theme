@@ -1,3 +1,1 @@
 - Add support for code highlighting
-- Display a list of categories and tags in the navbar
-- Change folder structure to be a actual theme for Hugo

@@ -1,6 +1,7 @@
 .idea
 npm-debug.log
-public/**/*.css
+static/css/theme.css
+static/css/theme.min.css
 node_modules
-public/fonts
-!public/fonts/.gitkeep
+static/fonts
+!static/fonts/.gitkeep
