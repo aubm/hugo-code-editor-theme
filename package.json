@@ -11,6 +11,7 @@
     "gulp-util": "^3.0.7"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "watch": "gulp watch"
   }
 }

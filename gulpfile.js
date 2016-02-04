@@ -13,6 +13,10 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('./static/css'));
 });
 
+gulp.task('watch', function() {
+    gulp.watch('./static/**/*.scss', ['sass']);
+});
+
 gulp.task('default', function() {
     gulp.start('fonts', 'sass');
 });
