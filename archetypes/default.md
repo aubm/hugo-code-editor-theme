@@ -1,2 +1,4 @@
 +++
+tags = []
+categories = []
 +++

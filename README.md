@@ -6,9 +6,7 @@ A theme for [Hugo](https://gohugo.io/), inspired by Atom editor.
 
 This repo is a work in progress, there is still work to do, contributions are welcome !
 
-- Support for code highlighting
 - Support for bootstrap tables
-- Support for tags and categories
 - Support Twitter and Facebook share buttons
 - Support pagination in list layout
 - Support "dynamic" titles and descriptions
@@ -16,3 +14,5 @@ This repo is a work in progress, there is still work to do, contributions are we
 - Add integration with Disqus
 - Add integration with Google Analytics
 - Add a "Home" link in the top of the menu 
+- Add custom 404.html
+- Support for code highlighting
