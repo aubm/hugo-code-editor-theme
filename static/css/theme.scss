@@ -1,6 +1,7 @@
-@import "./variables.scss";
-@import "./custom-bootstrap.scss";
-@import "./mixins.scss";
+@import "./variables";
+@import "./custom-bootstrap";
+@import "./mixins";
+@import "./paginator";
 
 html {
   height: 100%;
