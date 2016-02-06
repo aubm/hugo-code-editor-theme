@@ -1,6 +1,6 @@
 <nav class="col-md-3">
     <div id="last-posts" class="open">
-        <h3 data-open="last-posts">Aubm.net - Les derniers articles</h3>
+        <h3 data-open="last-posts">{{ .Site.Title }} - Les derniers articles</h3>
         <ul>
             {{ range last 10 .Site.Pages }}
             <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
