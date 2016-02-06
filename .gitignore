@@ -2,6 +2,8 @@
 npm-debug.log
 static/css/theme.css
 static/css/theme.min.css
+static/js/theme.js
+static/js/theme.min.js
 node_modules
 static/fonts
 !static/fonts/.gitkeep
