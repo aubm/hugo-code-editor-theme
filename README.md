@@ -2,8 +2,4 @@
 
 A theme for [Hugo](https://gohugo.io/), inspired by Atom editor.
 
-# TODOs
-
-This repo is a work in progress, there is still work to do, contributions are welcome !
-
-- Conventional CHANGELOG.md
+![Theme preview](static/img/theme-preview.png?raw=true "Code Editor Theme for Hugo")
