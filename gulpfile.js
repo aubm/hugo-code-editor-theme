@@ -5,6 +5,7 @@ var cssnano = require('gulp-cssnano');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
+require('./release');
 
 gulp.task('fonts', function() {
     gulp.src('./node_modules/bootstrap-sass/assets/fonts/bootstrap/*')
