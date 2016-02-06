@@ -5,4 +5,7 @@
 <article>
     {{ .Content }}
 </article>
+
+{{ template "_internal/disqus.html" . }}
+
 {{ partial "bottom.html" . }}
