@@ -66,7 +66,10 @@ a {
       font-size: 14px;
       padding: 4px 0px 4px 15px;
       margin: 0px;
-      &:before {
+      &.home-link {
+        text-align: center;
+      }
+      &:not(.home-link):before {
         @extend .glyphicon;
         @extend .glyphicon-folder-close;
         margin-right: 8px;
