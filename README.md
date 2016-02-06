@@ -6,5 +6,4 @@ A theme for [Hugo](https://gohugo.io/), inspired by Atom editor.
 
 This repo is a work in progress, there is still work to do, contributions are welcome !
 
-- Support for code highlighting
 - Conventional CHANGELOG.md
