@@ -1,6 +1,6 @@
 <nav class="col-md-3">
     <div id="last-posts" class="open">
-        <h3 data-open="last-posts">{{ .Site.Title }} - Les derniers articles</h3>
+        <h3 data-open="last-posts">{{ .Site.Title }} - {{ ( index $.Site.Data.translations $.Site.Params.locale ).mostrecentposts }}</h3>
         <ul>
             {{ range last 10 .Site.Pages }}
             <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
@@ -9,7 +9,7 @@
     </div>
 
     <div id="tags" class="open">
-        <h3 data-open="tags">Tags</h3>
+        <h3 data-open="tags">{{ ( index $.Site.Data.translations $.Site.Params.locale ).tags }}</h3>
         <ul class="tags">
             {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
             <li><a href="/tags/{{ $name | urlize }}">{{ $name }}</a></li>
@@ -18,7 +18,7 @@
     </div>
 
     <div id="categories" class="open">
-        <h3 data-open="categories">Categories</h3>
+        <h3 data-open="categories">{{ ( index $.Site.Data.translations $.Site.Params.locale ).categories }}</h3>
         <ul class="categories">
             {{ range $name, $taxonomy := .Site.Taxonomies.categories }}
             <li><a href="/categories/{{ $name | urlize }}">{{ $name }}</a></li>
