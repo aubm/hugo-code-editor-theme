@@ -1,3 +1,19 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/aubm/aubm-website-theme/compare/v1.0.0...v1.1.0) (2016-02-07)
+
+
+### Bug Fixes
+
+* actually list most recent articles intead of older ones in side menu ([9ccd3b3](https://github.com/aubm/aubm-website-theme/commit/9ccd3b3))
+* add fonts in index ([373a869](https://github.com/aubm/aubm-website-theme/commit/373a869))
+
+### Features
+
+* change date format to YYYY-mm-dd hh:mm-ss ([b78846f](https://github.com/aubm/aubm-website-theme/commit/b78846f))
+* show categories and tags blocs only if there are some ([5707d9d](https://github.com/aubm/aubm-website-theme/commit/5707d9d))
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2016-02-06)
 
