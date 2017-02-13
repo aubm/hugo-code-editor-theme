@@ -24,6 +24,7 @@ title = "Your site"
 theme = "code-editor"
 
 [params]
+    author = "John Doe"
     locale = "en-US"
 ```
 

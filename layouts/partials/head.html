@@ -1,7 +1,7 @@
 <base href="/">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="author" content="{{ with .Site.Params.name }}{{ . }}{{ end }}">
+<meta name="author" content="{{ with .Site.Params.author }}{{ . }}{{ end }}">
 {{ if isset . "Description" }}
 <meta name="description" content="{{ .Description }}">
 {{ else }}
