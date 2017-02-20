@@ -2,7 +2,7 @@
 
 A theme for [Hugo](https://gohugo.io/), inspired by Atom editor.
 
-![Theme preview](images/screenshot.png?raw=true "Code Editor Theme for Hugo")
+![Theme preview](https://raw.githubusercontent.com/aubm/hugo-code-editor-theme/master/images/screenshot.png "Code Editor Theme for Hugo")
 
 # Changelog
 
