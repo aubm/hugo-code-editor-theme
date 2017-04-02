@@ -3,7 +3,7 @@
     <div id="last-posts" class="open">
         <h3 data-open="last-posts">{{ .Site.Title }} - {{ ( index $.Site.Data.translations $.Site.Params.locale ).mostrecentposts }}</h3>
         <ul>
-            {{ range first 10 .Site.Pages }}
+            {{ range first 10 .Site.RegularPages }}
             <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
             {{ end }}
         </ul>
