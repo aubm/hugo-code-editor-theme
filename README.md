@@ -18,7 +18,7 @@ You will need to define the `locale` parameter in order to use this theme.
 Please have a look at this configuraton sample :
 
 ```
-baseurl = "http://your-site.com"
+baseurl = "http://your-site.com/blog"
 languageCode = "en-US"
 title = "Your site"
 theme = "code-editor"
@@ -26,6 +26,14 @@ theme = "code-editor"
 [params]
     author = "John Doe"
     locale = "en-US"
+    # rootlink = "/"
+    # rootlink specifies where Root in menu.html links to. 
+    # 1. If it's not set than baseurl will be used.
+    # 2. If it's set to a url with a scheme, like rootlink="https://www.google.com",
+    #    then Root will link to https://www.google.com.
+    # 3. If it's set to a path(without scheme), like rootlink="doc", then Root
+    #    will link to an url concatenated by host in baseurl and rootlink. In
+    #    this case, it comes up with http://your-site.com/doc.
 ```
 
 # Contributing
