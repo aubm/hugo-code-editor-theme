@@ -32,8 +32,7 @@ theme = "code-editor"
     # 2. If it's set to a url with a scheme, like rootlink="https://www.google.com",
     #    then Root will link to https://www.google.com.
     # 3. If it's set to a path(without scheme), like rootlink="doc", then Root
-    #    will link to an url concatenated by host in baseurl and rootlink. In
-    #    this case, it comes up with http://your-site.com/doc.
+    #    will link to "doc", which should work fine in the brower.
 ```
 
 # Contributing
