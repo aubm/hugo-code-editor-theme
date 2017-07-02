@@ -27,12 +27,7 @@ theme = "code-editor"
     author = "John Doe"
     locale = "en-US"
     # rootlink = "/"
-    # rootlink specifies where Root in menu.html links to. 
-    # 1. If it's not set than baseurl will be used.
-    # 2. If it's set to a url with a scheme, like rootlink="https://www.google.com",
-    #    then Root will link to https://www.google.com.
-    # 3. If it's set to a path(without scheme), like rootlink="doc", then Root
-    #    will link to "doc", which should work fine in the brower.
+    # rootlink specifies where Root in menu.html links to. If it's not set than baseurl will be used.
 ```
 
 # Contributing
