@@ -18,7 +18,7 @@ You will need to define the `locale` parameter in order to use this theme.
 Please have a look at this configuraton sample :
 
 ```
-baseurl = "http://your-site.com/blog"
+baseurl = "http://your-site.com"
 languageCode = "en-US"
 title = "Your site"
 theme = "code-editor"
@@ -27,7 +27,7 @@ theme = "code-editor"
     author = "John Doe"
     locale = "en-US"
     # rootlink = "/"
-    # rootlink specifies where Root in menu.html links to. If it's not set than baseurl will be used.
+    # rootlink specifies where Root in menu.html links to. If it's not set then baseurl will be used.
 ```
 
 # Contributing
