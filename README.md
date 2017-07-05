@@ -26,6 +26,8 @@ theme = "code-editor"
 [params]
     author = "John Doe"
     locale = "en-US"
+    # rootlink = "/"
+    # rootlink specifies where Root in menu.html links to. If it's not set then baseurl will be used.
 ```
 
 # Contributing
