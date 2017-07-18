@@ -1,5 +1,6 @@
 <nav class="col-md-3">
     <h3 class="home-link"><a href="{{ index .Site.Params "rootlink" | default .Site.BaseURL }}">{{ ( index $.Site.Data.translations $.Site.Params.locale ).root }}</a></h3>
+    {{ if $.Site.Params.codeeditor_menu_mostrecentposts | default true }}
     <div id="last-posts" class="open">
         <h3 data-open="last-posts">{{ .Site.Title }} - {{ ( index $.Site.Data.translations $.Site.Params.locale ).mostrecentposts }}</h3>
         <ul>
@@ -8,6 +9,7 @@
             {{ end }}
         </ul>
     </div>
+    {{ end }}
 
     {{ with .Site.Taxonomies.tags }}
     <div id="tags" class="open">
