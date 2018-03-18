@@ -47,7 +47,8 @@ a {
   padding-left: 0px;
   nav {
     @media (min-width: $screen-md-min) {
-      @extend .no-padding-left-and-right;
+      padding-left: 0px;
+      padding-right: 0px;
       position: fixed;
       height: 100%;
       overflow-y: auto;
