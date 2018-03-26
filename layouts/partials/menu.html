@@ -1,7 +1,7 @@
 <nav class="col-md-3">
-    <h3 class="home-link"><a href="{{ index .Site.Params "rootlink" | default .Site.BaseURL }}">{{ ( index $.Site.Data.translations $.Site.Params.locale ).root }}</a></h3>
+    <h3 class="home-link"><a href="{{ index .Site.Params "rootlink" | default .Site.BaseURL }}">{{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).root }}</a></h3>
     <div id="last-posts" class="open">
-        <h3 data-open="last-posts">{{ .Site.Title }} - {{ ( index $.Site.Data.translations $.Site.Params.locale ).mostrecentposts }}</h3>
+        <h3 data-open="last-posts">{{ .Site.Title }} - {{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).mostrecentposts }}</h3>
         <ul>
             {{ range first 10 .Site.RegularPages }}
             <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
@@ -11,7 +11,7 @@
 
     {{ with .Site.Taxonomies.tags }}
     <div id="tags" class="open">
-        <h3 data-open="tags">{{ ( index $.Site.Data.translations $.Site.Params.locale ).tags }}</h3>
+        <h3 data-open="tags">{{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).tags }}</h3>
         <ul class="tags">
             {{ range $name, $taxonomy := . }}
             <li><a href="/tags/{{ $name | urlize }}">{{ $name }}</a></li>
@@ -22,7 +22,7 @@
 
     {{ with .Site.Taxonomies.categories }}
     <div id="categories" class="open">
-        <h3 data-open="categories">{{ ( index $.Site.Data.translations $.Site.Params.locale ).categories }}</h3>
+        <h3 data-open="categories">{{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).categories }}</h3>
         <ul class="categories">
             {{ range $name, $taxonomy := . }}
             <li><a href="/categories/{{ $name | urlize }}">{{ $name }}</a></li>

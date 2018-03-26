@@ -1,4 +1,4 @@
 {{ partial "top.html" . }}
-<p>{{ ( index $.Site.Data.translations $.Site.Params.locale ).notfoundmsg }}</p>
-<p><a href="/">{{ ( index $.Site.Data.translations $.Site.Params.locale ).gotoroot }}</a></p>
+<p>{{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).notfoundmsg }}</p>
+<p><a href="/">{{ ( index $.Site.Data.translations (default $.Site.Params.locale "en-US") ).gotoroot }}</a></p>
 {{ partial "bottom.html" . }}
