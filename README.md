@@ -30,6 +30,10 @@ theme = "code-editor"
     # rootlink specifies where Root in menu.html links to. If it's not set then baseurl will be used.
 ```
 
+In addition to the required settings, you can customize this theme using the following keys within `[params]`:
+
+* `codeeditor_menu_mostrecentposts`, defaults to `true`, whether to show the "Most recent posts" section within the menu
+
 # Contributing
 
 Contributions are welcome. Please refer to the [contributions guidelines](https://github.com/aubm/hugo-code-editor-theme/blob/master/CONTRIBUTING.md) for more information.
